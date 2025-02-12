@@ -38,66 +38,68 @@ export const buildExecutable = (
   return minifyJS(executable);
 };
 
-const data: PipelineData = {
-  id: "pipeline_001",
-  name: "Simple Data Processing Pipeline",
-  triggers: [
-    {
-      type: "schedule",
-      schedule: "cron(0 12 * * ? *)",
-      startAction: "step_001",
-    },
-  ],
-  steps: [
-    {
-      id: "step_001",
-      actionType: "ApiCall",
-      actionData: {
-        url: "https://ifconfig.me",
-        method: "GET",
-        cache: true,
-        timeout: 5000,
-      },
-      onSuccess: ["step_002"],
-      onFailure: [],
-      description: "Fetch data from the API",
-    },
-    {
-      id: "step_002",
-      actionType: "processData",
-      actionData: {
-        processingSteps: [
-          {
-            operation: "filter",
-            criteria: { status: "active" },
-          },
-          {
-            operation: "map",
-            transform: { name: "title", value: "description" },
-          },
-        ],
-      },
-      onSuccess: ["step_003"],
-      onFailure: [],
-      description: "Process the fetched data",
-    },
-    {
-      id: "step_003",
-      actionType: "apiPost",
-      actionData: {
-        endpoint: "https://api.example.com/notify",
-        method: "POST",
-        body: {
-          message: "Data processing completed successfully!",
-          timestamp: "${timestamp}",
-        },
-      },
-      onSuccess: [],
-      onFailure: [],
-      description: "Notify the user about the completed processing",
-    },
-  ],
-};
+// test stuff
+
+// const data: PipelineData = {
+//   id: "pipeline_001",
+//   name: "Simple Data Processing Pipeline",
+//   triggers: [
+//     {
+//       type: "schedule",
+//       schedule: "cron(0 12 * * ? *)",
+//       startAction: "step_001",
+//     },
+//   ],
+//   steps: [
+//     {
+//       id: "step_001",
+//       actionType: "ApiCall",
+//       actionData: {
+//         url: "https://ifconfig.me",
+//         method: "GET",
+//         cache: true,
+//         timeout: 5000,
+//       },
+//       onSuccess: ["step_002"],
+//       onFailure: [],
+//       description: "Fetch data from the API",
+//     },
+//     {
+//       id: "step_002",
+//       actionType: "processData",
+//       actionData: {
+//         processingSteps: [
+//           {
+//             operation: "filter",
+//             criteria: { status: "active" },
+//           },
+//           {
+//             operation: "map",
+//             transform: { name: "title", value: "description" },
+//           },
+//         ],
+//       },
+//       onSuccess: ["step_003"],
+//       onFailure: [],
+//       description: "Process the fetched data",
+//     },
+//     {
+//       id: "step_003",
+//       actionType: "apiPost",
+//       actionData: {
+//         endpoint: "https://api.example.com/notify",
+//         method: "POST",
+//         body: {
+//           message: "Data processing completed successfully!",
+//           timestamp: "${timestamp}",
+//         },
+//       },
+//       onSuccess: [],
+//       onFailure: [],
+//       description: "Notify the user about the completed processing",
+//     },
+//   ],
+// };
 
 // const metadata: PipelineMetadata = {
 //   id: "test",
